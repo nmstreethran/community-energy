@@ -4,6 +4,35 @@ GIS project on mapping the impacts of a proposed offshore wind development plan 
 
 Originally completed as part of my dissertation at the University of Aberdeen
 
+## Set-up
+
+To execute scripts in your own Python environment, install [Miniconda](https://docs.conda.io/en/latest/miniconda.html); choose the Python 3.9 installer.
+
+Create and activate a virtual environment with all required packages (including QGIS):
+
+```sh
+conda create --name owci --channel conda-forge python=3.9 geopandas requests qgis
+conda activate owci
+```
+
+Install these additional requirements:
+
+- if using Windows:
+
+  ```sh
+  conda install --channel conda-forge 7zip
+  ```
+
+- to run Jupyter Notebooks:
+
+  ```sh
+  conda install --channel conda-forge matplotlib rioxarray jupyterlab
+  ```
+
+To launch the QGIS GUI using this environment, run `qgis`. The scripts can then be copied and pasted into QGIS' Python console.
+
+Note: Bathymetry data must be downloaded manually from the EMODnet Bathymetry portal.
+
 ## Licence
 
 (C) 2021 Nithiya Streethran
