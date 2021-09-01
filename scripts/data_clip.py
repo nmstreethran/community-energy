@@ -178,21 +178,6 @@ data.at[40, "cc_name"] = "Uig"
 data.to_file(gpkgPath, layer="hes_scheduled_monuments", driver="GPKG")
 print("Layer 'hes_scheduled_monuments' saved!")
 
-# filter viewpoints
-viewpoints = [5390, 5454, 90284, 5548, 90054, 90022, 90110]
-viewpoints = ["SM" + str(x) for x in viewpoints]
-
-data = data[data["DES_REF"].isin(viewpoints)]
-data["names"] = (data["DES_TITLE"].str.split(",", expand=True)[0])
-
-data.loc[
-    data["names"] == "Calanais or Callanish Standing Stones", "names"
-] = "Callanish Standing Stones"
-data.loc[data["names"] == "Arnol", "names"] = "Arnol Blackhouses"
-
-data.to_file(gpkgPath, layer="viewpoints", driver="GPKG")
-print("Layer 'viewpoints' saved!")
-
 # ###########################################################
 # NatureScot - GeMS PMF
 fiona.listlayers(glob.glob("data/raw/natural/gems_pmf/*.gdb")[0])

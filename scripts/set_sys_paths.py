@@ -3,9 +3,9 @@
 It may be necessary to run additional commands to ensure the path to the
 QGIS libraries are recognised by the Python interpreter. If
 `import qgis.core` gives a `ModuleNotFoundError`, just run the following in
-the Python interpreter of the active `qgis` conda environment:
+the Python interpreter of the active conda environment:
 
-exec(open("set_sys_paths.py").read())
+exec(open("scripts/set_sys_paths.py").read())
 """
 
 import sys
