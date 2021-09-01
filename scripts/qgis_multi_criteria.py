@@ -30,13 +30,11 @@ range boundaries: min < value <= max
 """
 
 # set paths to QGIS libraries
-# required for Windows
-exec(open("set_sys_paths.py").read())
+# may be necessary if using Windows
+# exec(open("scripts/set_sys_paths.py").read())
 
 # import libraries
-from qgis.core import (
-    QgsApplication, QgsProcessingFeedback, QgsProperty
-)
+from qgis.core import QgsApplication, QgsProcessingFeedback, QgsProperty
 
 # create a reference to the QgsApplication
 # setting the second argument to False disables the GUI
