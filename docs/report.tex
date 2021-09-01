@@ -1,0 +1,122 @@
+% arara: xelatex
+% arara: makeglossaries
+% arara: biber
+% arara: xelatex
+% arara: xelatex
+
+\documentclass[twoside,12pt,openany]{book}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% define author's name and document title
+\def\theauthor{Nithiya Mangala Streethran}
+\def\thetitle{%
+  Mapping the impacts of a proposed offshore wind development plan on
+  Isle of Lewis communities%
+}
+
+% PDF metadata - optional subject and comma-separated keywords
+% leave the braces blank if not applicable
+\def\subject{Geographical Information Systems}
+\def\keywords{%
+  offshore wind energy, multi-criteria analysis, viewshed analysis,
+  participatory GIS, community impacts%
+}
+
+% choose internal and external link colours
+% (named colours via svgnames are available)
+% see xcolor's documentation for a full list of svgnames colours:
+% http://mirrors.ctan.org/macros/latex/contrib/xcolor/xcolor.pdf
+\def\externallink{SeaGreen}
+\def\internallink{DarkOrchid}
+
+\usepackage{docstyle}
+
+% separate bibliographies for software and data entries
+% https://tex.stackexchange.com/a/35779
+\DeclareSourcemap{
+  \maps[datatype=bibtex, overwrite]{
+    \map{
+      \perdatasource{bibliography/data.bib}
+      \step[fieldset=KEYWORDS,fieldvalue=data,append]
+    }
+    \map{
+      \perdatasource{bibliography/software.bib}
+      \step[fieldset=KEYWORDS,fieldvalue=software,append]
+    }
+  }
+}
+
+% glossaries and bibliographies
+\loadglsentries{glossary}
+\addbibresource{bibliography/cited.bib}
+\addbibresource{bibliography/data.bib}
+\addbibresource{bibliography/software.bib}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frontmatter
+
+% use \maketitle, or define a custom titlepage
+\begin{titlepage}
+  \hspace{0pt}\vfill % vertical centering
+  \centering % horizontal centering
+  \Large\thetitle
+  \\[4cm]
+  \large\theauthor
+  \vfill
+  August 2021
+  % \\[.5cm]
+  % Last updated: \today
+  \vfill\hspace{0pt} % vertical centering
+\end{titlepage}
+
+{\setlength{\parindent}{0pt}
+\hspace{0pt}\vfill
+\textcopyright~\the\year{}~\theauthor
+\\[.5cm]
+MSc in Geographical Information Systems
+\\[.5cm]
+University of Aberdeen
+\\[.5cm]
+Email: n.streethran.20@abdn.ac.uk // nmstreethran@gmail.com
+% \\[.5cm]
+% The contents of this document are licenced under a Creative Commons
+% Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0) License. \\
+% \url{https://creativecommons.org/licenses/by-sa/4.0/}
+\vfill\hspace{0pt}
+}
+
+\doublespacing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\printglossaries
+
+\input{acknowledgements}
+
+\themainmatter
+
+\input{introduction}
+\input{literature}
+\input{methodology}
+\input{results}
+\input{discussion}
+\input{conclusion}
+
+{%
+  \backmatter%
+  \chapter{References}%
+  \printbibliography[category=cited,heading=none]%
+}
+
+\nocite{*}
+\theappendix
+\input{appendices}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
