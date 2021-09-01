@@ -25,7 +25,7 @@ import glob
 import os
 import xml.etree.ElementTree as ET
 from io import BytesIO
-from zipfile import ZipFile
+from zipfile import ZipFile, BadZipFile
 import requests
 
 # ##########################################################################
@@ -51,9 +51,12 @@ def downloadData(url, subdir, params=None):
     os.makedirs(downloadDir, exist_ok=True)
     # download data to directory
     if r.status_code == 200:
-        z = ZipFile(BytesIO(r.content))
-        z.extractall(downloadDir)
-        print("Data successfully downloaded to", downloadDir)
+        try:
+            z = ZipFile(BytesIO(r.content))
+            z.extractall(downloadDir)
+            print("Data successfully downloaded to", downloadDir)
+        except BadZipFile:
+            print("Error! Bad zip file. Data not extracted to", downloadDir)
     else:
         print(
             "Data not downloaded to", downloadDir,
