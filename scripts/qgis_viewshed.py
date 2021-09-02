@@ -181,7 +181,7 @@ for fld in folderList:
     # clip to land area
     params = {
         "INPUT": fld + ".tif",
-        "MASK": "data/input.gpkg|layername=os_bdline_westernisles",
+        "MASK": "data/input.gpkg|layername=study_area_bdline",
         "SOURCE_CRS": None,
         "TARGET_CRS": None,
         "NODATA": None,
