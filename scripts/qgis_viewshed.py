@@ -2,51 +2,51 @@
 
 Spacing
 -------
-25 turbines: 2880 m
-50 turbines: 2000 m
-75 turbines: 1625 m
-100 turbines: 1400 m
+ 25 turbines: 2,880 m
+ 50 turbines: 2,000 m
+ 75 turbines: 1,625 m
+100 turbines: 1,400 m
 
 Classes
 -------
 100 turbines:
-1) 0 < x <= 4250 -> 0
-2) 4250 < x <= 8500 -> 0.2
-3) 8500 < x <= 12750 -> 0.4
-4) 12750 < x <= 17000 -> 0.6
-5) 17000 < x <= 21250 -> 0.8
-6) 21250 < x <= 25500 -> 1
+1)      0.0 < x <=  4,250.0 -> 0.0
+2)  4,250.0 < x <=  8,500.0 -> 0.2
+3)  8,500.0 < x <= 12,750.0 -> 0.4
+4) 12,750.0 < x <= 17,000.0 -> 0.6
+5) 17,000.0 < x <= 21,250.0 -> 0.8
+6) 21,250.0 < x <= 25,500.0 -> 1.0
 
 75 turbines:
-1) 0 < x <= 3187.5 -> 0
-2) 3187.5 < x <= 6375 -> 0.2
-3) 6375 < x <= 9562.5 -> 0.4
-4) 9562.5 < x <= 12750 -> 0.6
-5) 12750 < x <= 15937.5 -> 0.8
-6) 15937.5 < x <= 19125 -> 1
+1)      0.0 < x <=  3,187.5 -> 0.0
+2)  3,187.5 < x <=  6,375.0 -> 0.2
+3)  6,375.0 < x <=  9,562.5 -> 0.4
+4)  9,562.5 < x <= 12,750.0 -> 0.6
+5) 12,750.0 < x <= 15,937.5 -> 0.8
+6) 15,937.5 < x <= 19,125.0 -> 1.0
 
 50 turbines:
-1) 0 < x <= 2125 -> 0
-2) 2125 < x <= 4250 -> 0.2
-3) 4250 < x <= 6375 -> 0.4
-4) 6375 < x <= 8500 -> 0.6
-5) 8500 < x <= 10625 -> 0.8
-6) 10625 < x <= 12750 -> 1
+1)      0.0 < x <=  2,125.0 -> 0.0
+2)  2,125.0 < x <=  4,250.0 -> 0.2
+3)  4,250.0 < x <=  6,375.0 -> 0.4
+4)  6,375.0 < x <=  8,500.0 -> 0.6
+5)  8,500.0 < x <= 10,625.0 -> 0.8
+6) 10,625.0 < x <= 12,750.0 -> 1.0
 
 25 turbines:
-1) 0 < x <= 1062.5 -> 0
-2) 1062.5 < x <= 2125 -> 0.2
-3) 2125 < x <= 3187.5 -> 0.4
-4) 3187.5 < x <= 4250 -> 0.6
-5) 4250 < x <= 5312.5 -> 0.8
-6) 5312.5 < x <= 6375 -> 1
+1)     0.0  < x <= 1,062.5  -> 0.0
+2) 1,062.5  < x <= 2,125.0  -> 0.2
+3) 2,125.0  < x <= 3,187.5  -> 0.4
+4) 3,187.5  < x <= 4,250.0  -> 0.6
+5) 4,250.0  < x <= 5,312.5  -> 0.8
+6) 5,312.5  < x <= 6,375.0  -> 1.0
 
 range boundaries: min < value <= max
 """
 
 # set paths to QGIS libraries
-# required for Windows
-exec(open("set_sys_paths.py").read())
+# may be necessary if using Windows
+# exec(open("scripts/set_sys_paths.py").read())
 
 # import libraries
 from qgis.core import (
@@ -77,7 +77,7 @@ feedback = QgsProcessingFeedback()
 os.makedirs("data/temp/viewshed", exist_ok=True)
 
 # generate turbine distribution in N4
-n4 = "data/data.gpkg|layername=sectoral_marine_plan_N4"
+n4 = "data/input.gpkg|layername=sectoral_marine_plan_N4"
 turbDist = [(25, 2880), (50, 2000), (75, 1625), (100, 1400)]
 
 for n, d in turbDist:
@@ -100,7 +100,7 @@ for n, d in turbDist:
         "_turbines"
     )
     distLayer = (
-        "ogr:dbname=\'data/temp/viewshed/turbine_dist.gpkg\' table=\"" +
+        "ogr:dbname=\'data/output.gpkg\' table=\"scenario_" +
         str(n) + "_turbines\" (geom)"
     )
     params = {
@@ -121,7 +121,7 @@ for n, h in scenarios:
         "data/temp/viewshed/" + str(n) + "t_" + str(h) + "m", exist_ok=True
     )
     nLayer = gpd.read_file(
-        "data/data.gpkg", layer="scenario_"+str(n)+"_turbines"
+        "data/output.gpkg", layer="scenario_"+str(n)+"_turbines"
     )
     for i in range(len(nLayer)):
         obs = (
@@ -162,7 +162,7 @@ folderList = glob.glob("data/temp/viewshed/*m")
 for fld in folderList:
     params = {
         "INPUT": fld + "_temp.tif",
-        "MASK": "data/data.gpkg|layername=study_area",
+        "MASK": "data/input.gpkg|layername=study_area",
         "SOURCE_CRS": None,
         "TARGET_CRS": None,
         "NODATA": None,
@@ -181,7 +181,7 @@ for fld in folderList:
     # clip to land area
     params = {
         "INPUT": fld + ".tif",
-        "MASK": "data/data.gpkg|layername=os_bdline_westernisles",
+        "MASK": "data/input.gpkg|layername=study_area_bdline",
         "SOURCE_CRS": None,
         "TARGET_CRS": None,
         "NODATA": None,
@@ -199,8 +199,12 @@ for fld in folderList:
 
 # reclassify and normalise viewshed raster
 tbl = [
-    0, 1062.5, 0, 1062.5, 2125, 0.2, 2125, 3187.5, 0.4, 3187.5, 4250, 0.6,
-    4250, 5312.5, 0.8, 5312.5, 6375, 1
+    0, 1062.5, 0,
+    1062.5, 2125, 0.2,
+    2125, 3187.5, 0.4,
+    3187.5, 4250, 0.6,
+    4250, 5312.5, 0.8,
+    5312.5, 6375, 1
 ]
 inRaster = "data/temp/viewshed/25t_180m_clip.tif"
 outRaster = "data/rasters/viewshed_25t_180m.tif"
@@ -218,16 +222,29 @@ params = {
 processing.run("native:reclassifybytable", params, feedback=feedback)
 
 # generate viewpoint centroids
-params = {
-    "INPUT": "data/data.gpkg|layername=viewpoints",
-    "ALL_PARTS": False,
-    "OUTPUT": "data/temp/viewshed/viewpoint_centroids.shp"
-}
-processing.run("native:centroids", params, feedback=feedback)
+data = gpd.read_file("data/input.gpkg", layer="hes_scheduled_monuments")
+
+# filter viewpoints
+viewpoints = [5390, 5454, 90284, 5548, 90054, 90022, 90110]
+viewpoints = ["SM" + str(x) for x in viewpoints]
+
+data = data[data["DES_REF"].isin(viewpoints)]
+data["names"] = (data["DES_TITLE"].str.split(",", expand=True)[0])
+
+data.loc[
+    data["names"] == "Calanais or Callanish Standing Stones", "names"
+] = "Callanish Standing Stones"
+data.loc[data["names"] == "Arnol", "names"] = "Arnol Blackhouses"
+
+# get centroids
+data["geometry"] = data.centroid
+
+# save output
+data.to_file("data/output.gpkg", layer="viewpoints", driver="GPKG")
 
 # generate 100 m buffer
 params = {
-    "INPUT": "data/temp/viewshed/viewpoint_centroids.shp",
+    "INPUT": "data/output.gpkg|layername=viewpoints",
     "RINGS": 1,
     "DISTANCE": 100,
     "OUTPUT": "data/temp/viewshed/viewpoint_buffer.shp"
@@ -236,7 +253,7 @@ processing.run("native:multiringconstantbuffer", params, feedback=feedback)
 
 # generate zonal statistics for each viewshed raster
 outLayer = (
-    "ogr:dbname=\'data/data.gpkg\' table=\"" +
+    "ogr:dbname=\'data/output.gpkg\' table=\"" +
     "zonalstats_25t_180m\" (geom)"
 )
 params = {
@@ -250,7 +267,6 @@ params = {
 processing.run("native:zonalstatisticsfb", params, feedback=feedback)
 
 # generate zonal statistics at each viewpoint for digital terrain model
-# save as layers in data/data.gpkg
 
 # ######################################################################
 # call exitQgis() to remove the provider and layer registries from memory

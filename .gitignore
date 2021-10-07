@@ -1,1 +1,9 @@
 .vscode/
+data/
+draft/
+images/
+maps/
+notebooks/
+*.gpkg-*
+*.log
+*.pdf

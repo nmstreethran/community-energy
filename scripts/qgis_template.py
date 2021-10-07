@@ -3,8 +3,8 @@
 """
 
 # set paths to QGIS libraries
-# necessary for Windows users
-exec(open("set_sys_paths.py").read())
+# may be necessary if using Windows
+# exec(open("scripts/set_sys_paths.py").read())
 
 # import libraries
 from qgis.core import (
