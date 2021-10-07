@@ -3,40 +3,38 @@
 Classes
 -------
 Population:
-1) 0 < x <= 2.5e-06 -> 1
-2) 2.5e-06 < x <= 5e-06 -> 0.8
-3) 5e-06 < x <= 7.5e-06 -> 0.6
-4) 7.5e-06 < x <= 1e-05 -> 0.4
-5) 1e-05 < x <= 1.25e-05 -> 0.2
-6) 1.25e-05 < x <= 1.5e-05 -> 0
+1) 0.00     < x <= 2.50e-06 -> 1.0
+2) 2.50e-06 < x <= 5.00e-06 -> 0.8
+3) 5.00e-06 < x <= 7.50e-06 -> 0.6
+4) 7.50e-06 < x <= 1.00e-05 -> 0.4
+5) 1.00e-05 < x <= 1.25e-05 -> 0.2
+6) 1.25e-05 < x <= 1.50e-05 -> 0.0
 
 Distance to shore:
-1) 0 < x <= 5000 -> 0
-2) 5000 < x <= 10000 -> 0.2
-3) 10000 < x <= 15000 -> 0.4
-4) 15000 < x <= 20000 -> 0.6
-5) 20000 < x <= 25000 -> 0.8
-6) 25000 < x <= 30000 -> 1
+1)      0   < x <=  5,000   -> 0.0
+2)  5,000   < x <= 10,000   -> 0.2
+3) 10,000   < x <= 15,000   -> 0.4
+4) 15,000   < x <= 20,000   -> 0.6
+5) 20,000   < x <= 25,000   -> 0.8
+6) 25,000   < x <= 30,000   -> 1.0
 
 Distance from scenic areas:
-1) 0 < x <= 7500 -> 0
-2) 7500 < x <= 15000 -> 0.2
-3) 15000 < x <= 22500 -> 0.4
-4) 22500 < x <= 30000 -> 0.6
-5) 30000 < x <= 37500 -> 0.8
-6) 37500 < x <= 45000 -> 1
+1)      0   < x <=  7,500   -> 0.0
+2)  7,500   < x <= 15,000   -> 0.2
+3) 15,000   < x <= 22,500   -> 0.4
+4) 22,500   < x <= 30,000   -> 0.6
+5) 30,000   < x <= 37,500   -> 0.8
+6) 37,500   < x <= 45,000   -> 1.0
 
 range boundaries: min < value <= max
 """
 
 # set paths to QGIS libraries
-# required for Windows
-exec(open("set_sys_paths.py").read())
+# may be necessary if using Windows
+# exec(open("scripts/set_sys_paths.py").read())
 
 # import libraries
-from qgis.core import (
-    QgsApplication, QgsProcessingFeedback, QgsProperty
-)
+from qgis.core import QgsApplication, QgsProcessingFeedback, QgsProperty
 
 # create a reference to the QgsApplication
 # setting the second argument to False disables the GUI
@@ -60,7 +58,7 @@ os.makedirs("data/temp/mca", exist_ok=True)
 
 # interpolate population data
 params = {
-    "INPUT": "data/data.gpkg|layername=census_centroids",
+    "INPUT": "data/input.gpkg|layername=census_centroids",
     "RADIUS": 35000,
     "PIXEL_SIZE": 10,
     "WEIGHT_FIELD": "All people",
@@ -76,7 +74,7 @@ processing.run(
 # clip to study area
 params = {
     "INPUT": "data/temp/mca/population_heatmap.tif",
-    "MASK": "data/data.gpkg|layername=study_area_water",
+    "MASK": "data/input.gpkg|layername=study_area_water",
     "SOURCE_CRS": None,
     "TARGET_CRS": None,
     "NODATA": None,
@@ -94,8 +92,12 @@ processing.run("gdal:cliprasterbymasklayer", params, feedback=feedback)
 
 # reclassify
 tbl = [
-    0, 2.5e-06, 1, 2.5e-06, 5e-06, 0.8, 5e-06, 7.5e-06, 0.6,
-    7.5e-06, 1e-05, 0.4, 1e-05, 1.25e-05, 0.2, 1.25e-05, 1.5e-05, 0
+    0, 2.5e-06, 1,
+    2.5e-06, 5e-06, 0.8,
+    5e-06, 7.5e-06, 0.6,
+    7.5e-06, 1e-05, 0.4,
+    1e-05, 1.25e-05, 0.2,
+    1.25e-05, 1.5e-05, 0
 ]
 params = {
     "INPUT_RASTER": "data/temp/mca/population_heatmap_clipped.tif",
@@ -112,7 +114,7 @@ processing.run("native:reclassifybytable", params, feedback=feedback)
 # ######################################################################
 # distance to shore buffers - six 5 km rings
 params = {
-    "INPUT": "data/data.gpkg|layername=os_terrain50_lowwater",
+    "INPUT": "data/input.gpkg|layername=os_terrain50_lowwater",
     "RINGS": 6,
     "DISTANCE": 5000,
     "OUTPUT": "data/temp/mca/dist_to_shore_buffer.shp"
@@ -162,7 +164,7 @@ processing.run("gdal:rasterize", params, feedback=feedback)
 # clip
 params = {
     "INPUT": "data/temp/mca/dist_to_shore_rasterise.tif",
-    "MASK": "data/data.gpkg|layername=study_area_water",
+    "MASK": "data/input.gpkg|layername=study_area_water",
     "SOURCE_CRS": None,
     "TARGET_CRS": None,
     "NODATA": -9999,
@@ -180,8 +182,12 @@ processing.run("gdal:cliprasterbymasklayer", params, feedback=feedback)
 
 # reclassify
 tbl = [
-    0, 5000, 0, 5000, 10000, 0.2, 10000, 15000, 0.4, 15000, 20000, 0.6,
-    20000, 25000, 0.8, 25000, 30000, 1
+    0, 5000, 0,
+    5000, 10000, 0.2,
+    10000, 15000, 0.4,
+    15000, 20000, 0.6,
+    20000, 25000, 0.8,
+    25000, 30000, 1
 ]
 params = {
     "INPUT_RASTER": "data/temp/mca/dist_to_shore_clipped.tif",
@@ -198,7 +204,7 @@ processing.run("native:reclassifybytable", params, feedback=feedback)
 # ######################################################################
 # distance to scenic areas
 params = {
-    "INPUT": "data/data.gpkg|layername=national_scenic_areas",
+    "INPUT": "data/input.gpkg|layername=national_scenic_areas",
     "RINGS": 9,
     "DISTANCE": 5000,
     "OUTPUT": "data/temp/mca/dist_from_nsa_buffer.shp"
@@ -230,7 +236,7 @@ processing.run("gdal:rasterize", params, feedback=feedback)
 # clip
 params = {
     "INPUT": "data/temp/mca/dist_from_nsa_rasterise.tif",
-    "MASK": "data/data.gpkg|layername=study_area_water",
+    "MASK": "data/input.gpkg|layername=study_area_water",
     "SOURCE_CRS": None,
     "TARGET_CRS": None,
     "NODATA": -9999,
@@ -248,8 +254,12 @@ processing.run("gdal:cliprasterbymasklayer", params, feedback=feedback)
 
 # reclassify
 tbl = [
-    0, 7500, 0, 7500, 15000, 0.2, 15000, 22500, 0.4, 22500, 30000, 0.6,
-    30000, 37500, 0.8, 37500, 45000, 1
+    0, 7500, 0,
+    7500, 15000, 0.2,
+    15000, 22500, 0.4,
+    22500, 30000, 0.6,
+    30000, 37500, 0.8,
+    37500, 45000, 1
 ]
 params = {
     "INPUT_RASTER": "data/temp/mca/dist_from_nsa_clipped.tif",
@@ -267,7 +277,7 @@ processing.run("native:reclassifybytable", params, feedback=feedback)
 # marine species
 # extract entries with species count attribute
 params = {
-    "INPUT": "data/data.gpkg|layername=gems_species",
+    "INPUT": "data/input.gpkg|layername=gems_species",
     "FIELD": "SPCOUNT",
     "OPERATOR": 3,
     "VALUE": "0",

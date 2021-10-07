@@ -1,6 +1,10 @@
 .ipynb_checkpoints/
 .vscode/
+data/
 draft/
+images/
+maps/
+notebooks/
 *.acn
 *.acr
 *.alg
@@ -11,6 +15,7 @@ draft/
 *.glg
 *.glo
 *.gls
+*.gpkg-*
 *.ist
 *.lof
 *.log

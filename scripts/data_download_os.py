@@ -13,7 +13,7 @@ datasets, their formats, and area coverage.
 
 # import libraries
 import os
-from zipfile import ZipFile
+from zipfile import ZipFile, BadZipFile
 import requests
 
 # ##########################################################################
@@ -89,9 +89,12 @@ def dataDownload(dataset, subdir, area, dataformat, chunk_size=1048676):
         with open(downloadDir + dataset + ".zip", "wb") as fd:
             for chunk in r.iter_content(chunk_size=chunk_size):
                 fd.write(chunk)
-        z = ZipFile(downloadDir + dataset + ".zip")
-        z.extractall(downloadDir)
-        print("Data successfully downloaded to", downloadDir)
+        try:
+            z = ZipFile(downloadDir + dataset + ".zip")
+            z.extractall(downloadDir)
+            print("Data successfully downloaded to", downloadDir)
+        except BadZipFile:
+            print("Error! Bad zip file. Data not extracted to", downloadDir)
     else:
         print(
             "Data not downloaded to", downloadDir,
