@@ -249,9 +249,7 @@ The scheduled monuments data were polygon features, so the viewpoints must be co
 
 \gls{mca} was used to evaluate the suitability of the area within site N4 for commercial-scale offshore wind development. The suitability is analysed in terms of impacts on the community; the lower the impact, the higher the suitability. Based on the review of recent literature \autocite{gaveriaux2019,mekonnen2015,vasileiou2017,tercan2020,deveci2020,mahdy2018,basset2021}, two categories of community impact assessment criteria were identified: socio-economic, such as population and recreational activities; and environmental, such as marine habitats and scenic views. As the focus is on community impacts, site N4's suitability in terms of geology, meteorology, and other natural conditions are omitted from this analysis.
 
-The proximity to the shoreline, scenic areas, and populated areas are factors that influence visual and noise impacts. Meanwhile, installation of offshore turbines must be prohibited where marine species are present, as this is a constraint.
-
-A visual representation of the criteria used is shown in \autoref{fig:criteria}.
+The proximity to the shoreline, scenic areas, and populated areas are factors that influence visual and noise impacts. Meanwhile, installation of offshore turbines must be prohibited where marine species are present, as this is a constraint. A visual representation of the criteria used is shown in \autoref{fig:criteria}.
 
 \begin{figure}
   \centering
@@ -261,7 +259,7 @@ A visual representation of the criteria used is shown in \autoref{fig:criteria}.
 
 Using QGIS, the OS Terrain 50 land-water boundary lines which use the mean low water levels were used as the shoreline. The National Scenic Areas dataset, which comprises of polygons, was used to represent the scenic areas. The multi-ring buffer algorithm was then used to calculate the proximity to scenic areas and the shoreline, using 5 km buffer intervals, which is based on the 3-mile value used by \textcite{mekonnen2015}. The generated buffers were then rasterised to GeoTIFF files of the same resolution as the \gls{dtm}. The population data was based on Scotland's 2011 census output areas and their population-weighted centroids. Heatmaps were used to interpolate the population data from the centroids, which also produces a raster layer.
 
-After clipping the rasters to the study area, they were normalised to a scale of 0 to 1. The normalised rasters were then reclassified into five discrete classes, which represent "very high", "high", "medium", "low", and "very low". The higher the distances to shore and scenic areas, the lower the anticipated impacts on the community; therefore, the higher the suitability for offshore development. Conversely, the higher the interpolated population value, the higher the anticipated impacts on the community; therefore, the lower the suitability for offshore development.
+After clipping the rasters to the study area, they were normalised to a scale of 0 to 1, where 1 is most suitable and 0 is least suitable. The normalised rasters were then reclassified into five discrete classes, which represent "very high", "high", "medium", "low", and "very low". The higher the distances to shore and scenic areas, the lower the anticipated impacts on the community; therefore, the higher the suitability for offshore development. Conversely, the higher the interpolated population value, the higher the anticipated impacts on the community; therefore, the lower the suitability for offshore development.
 
 The reclassified raster layers were then added to produce a cumulative raster through the use of the raster calculator. Finally, buffers were created around marine species distribution points, which were weighted by their species count attributes. 1 km exclusion zones were then created to remove these constraints from the site suitability analysis.
 

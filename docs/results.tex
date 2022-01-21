@@ -1,5 +1,37 @@
 \chapter{Results}
 
+\section{Participatory GIS}
+
+The following summary details the responses received from the community land owners during the participatory GIS session. The responses are by the group and not tied to any particular land owner that participated.
+
+The session started off by showing the web map to the participants and asking them to explain which areas they are familiar with and can provide local knowledge. At that time, the Ordnance Survey Boundary-Line\texttrademark\ was used to provide a backdrop for the data points in the study area. The land owners suggested using the Deer Management Plan map \autocite{dmg-map}, which shows land estate boundaries in the Isle of Lewis. Since community land ownership is an important part of the Outer Hebrides, these estate boundaries are highly relevant to their local knowledge concentration. The map is however in PDF format, so \gls{gis} data must either be digitised by hand or obtained through contacting Deer Management groups.
+
+When asked about any existing consultations with stakeholders regarding the \gls{smp}, they stated that one public meeting was held, but there was very little awareness of the meeting actually taking place. Therefore, none of the land owners attended it. When asked about the factors that influenced the significant changes seen between the draft and final Plan Options, there were no comments, as there was even less awareness during which the draft plan was published in December 2019.
+
+The land owners were then asked about the potential offshore wind farm scenarios. They were asked whether smaller turbines, which occupy less space, is less prominent, and produces less power output, is preferable to larger turbines, which will be more visible due to size, but produces more clean energy. They responded that the communities have not been consulted regarding any potential scenarios or plans for development, but they anticipate smaller turbines to have a lesser impact overall on the landscape and seascape and would be preferred. However, they usually expect some indications or projections of what different development options will look like from stakeholders. This include having some ideas about the turbine specifications. Since this has not been provided to them at this stage, they do not have much input to provide. They feel that the community are isolated, as apart from the realistic development quoted in the \gls{smp} of 1 GW in 200 km\textsuperscript{2} of seabed area, no other idea of the scale of development has been provided, other than doing their own simple calculations on the power ratings of different turbines.
+
+Regarding the impacts that they deem most important, they mentioned visual and noise, and that it would be interesting to visualise the effects of differing turbine dimensions on the magnitude of these impacts. They noted that there is potential for national and international interests and oppositions due to N4's proximity to the shore and changing coastal views.
+
+The land owners were then asked about fishing activities. They mentioned that fishing usually takes place between the shoreline and the border to site N4, so the boats do not always intersect with site N4's border. During the summer, some boats travel out of Carloway to do this, and they may go further west to catch fish near the other islands. During winter, crustacean catching is done on the east side of the island. While site N4's boundary intersects with cockles, shellfish, and sandeel habitats where fishing is prohibited, stationary structures of the wind turbines are not expected to cause any adverse effects on these marine organisms; it may as well provide an artificial reef-like environment for them to live. With regards to aquaculture, all farms are inshore and in shallow waters, and there has not been any deep water farms.
+
+When asked if there has been any interest in investing in site N4, they noted that there are some interested parties who are in discussion with the local council regarding the offshore wind development. However, there has been very little communication or publicly available documentation from these parties that can provide information and context to the community. The parties interested are all foreign companies or large, multinational corporations, or groups of companies established in the offshore wind industry. As a result, such a large scale investment is attractive to them, as they have the funds available within the short timeframe. In contrast, community groups usually take a long time to consult with each other and devise plans to raise money for an investment.
+
+They noted that community targets are small in contrast to national targets, which are very ambitious. Since the Crown Estate is in charge of seabed leasing and management, community involvement in marine zones is non-existant. There is, however, a close relationship between the community and onshore wind development. Their biggest onshore wind farm thus far has a capacity of 9 MW from three turbines, which they consider large for community groups.
+
+If N4 is developed, they anticipate that there will be no supply chain benefits during the construction phase of the wind farm, as labour and materials will likely be imported by the corporations involved. They expect there to be operation and maintenance jobs available to the locals once the wind farm is operational, and that the harbour will see collaborations and investments for transportation infrastructure.
+
+They were then asked about important sites in the study area that may be affected by development at site N4. They anticipate ancient cultural heritage monuments, such as blackhouses, Gearannan, Calanais standing stones, and Dun Carloway, will have major impacts. The Calanais stones are an important monument and there are 11-15 other stones that, while not nationally-designated, are still important culturally and economically, as they are attractive to tourists. The entire coastline and beaches are large attractions for both tourists and locals, with the beach in Dalmore being frequently visited by local communities for leisure. There are other cemeteries and archaeologically-important sites around the study area.
+
+When asked if there are any natural spaces that are as significant as the historic monuments and coastal areas, they mentioned that the NatureScot designated protected areas on the island are land-based areas which are usually inaccessible to most visitors and people in general, but they are important to birds and other terrestrial wildlife. The coastlines have cliffs and sandy beaches that are deemed by the communities as being scenic views.
+
+The land owners also suggested the possibility of quantifying visual impacts on coastal accommodation, to see how it could potentially overnight stays in these buildings which are valued for their views towards the sea. There is no accommodation catalogue that they know of, however, so the data has to be scraped from accommodation sites like AirBnB or approximated based on the Outer Hebrides tourism website.
+
+The land owners had favourable opinions regarding the use of the ArcGIS Online web map and found that it was easy to toggle on and off the various layers. They feel that any form of visual aid will greatly benefit community engagement in important policy decisions. They see benefits in using more sophisticated visualisations, such as three-dimensional representations of the different development scenarios from different perspectives, such as cycling route vantage points.
+
+\section{Visual impact assessment}
+
+\autoref{fig:zs_scenarios} compares the normalised mean viewshed values for each offshore wind development scenario at each viewpoint obtained through zonal statistics. Based on the first chart, which compares varying turbine heights, three of the seven viewpoints (Loch Baravat, Arnol Blackhouses, and Steinacleit) have the maximum viewpoint value of 1, regardless of scenario. From the other four viewpoints, a clear relationship between the turbine height and visibility can be deduced: the taller the turbine, the higher the visual impact. Of these four viewpoints, Dun Carloway had the lowest visual impact, regardless of turbine height. Based on the second chart, which compares varying turbine numbers (which correlates to the density of installation), no clear relationship exists between the number of turbines and visual impact. Similar to the previous chart, three of the seven viewpoints (Loch Baravat, Arnol Blackhouses, and Steinacleit) have the maximum viewpoint value of 1, regardless of scenario, and Dun Carloway has the lowest visual impact overall.
+
 \begin{figure}
   \centering
   \begin{subfigure}[t]{.9\textwidth}
@@ -15,11 +47,17 @@
   statistics at each viewpoint for each offshore wind development scenario. \label{fig:zs_scenarios}}
 \end{figure}
 
+In order to compare the zonal statistics with the terrain condition at the viewpoints, the mean elevation at each viewpoint was also calculated, which is shown in \autoref{fig:zs_elevation}. Based on this chart, there is no clear relationship between the viewpoint's elevation and the visual impact. Dun Carloway, which had the lowest visual impact overall, has the third highest mean elevation of the seven viewpoints.
+
 \begin{figure}
   \centering
   \frame{\includegraphics[width=.9\textwidth]{../images/plots/zs_elevation}}
   \caption{A chart showing the mean elevation obtained through zonal statistics at each viewpoint. \label{fig:zs_elevation}}
 \end{figure}
+
+\section{Site suitability assessment}
+
+\autoref{fig:mca_results} shows the results of the \gls{mca}. From this map, the northern parts of N4 are the most suitable overall, while the areas in the south-western side, close to Loch Roag, National Scenic Areas, the coastline, and marine habitats, are the least suitable.
 
 \begin{figure}
   \centering
