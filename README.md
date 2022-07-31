@@ -54,6 +54,14 @@ Community Council Boundaries | [Improvement Service] | Shapefile | 11/2021 | Sco
   - British National Grids (various resolutions, GB coverage): `100km_grid`, `50km_grid`, `20km_grid`, `10km_grid`, `5km_grid`, `1km_grid`
   - OS Open Names, covering NA8 and NB: `os_opennames`
 
+## Jupyter notebooks
+
+&nbsp; | Output
+-- | --
+OS Downloads API | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/urls/gitlab.com/community-energy/community-energy-notebooks/-/raw/main/notebooks/os_downloads_api.ipynb)
+Study area definition | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/urls/gitlab.com/community-energy/community-energy-notebooks/-/raw/main/notebooks/study_area_def.ipynb)
+Context | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/urls/gitlab.com/community-energy/community-energy-notebooks/-/raw/main/notebooks/context.ipynb)
+
 ## Licence
 
 (C) 2021-2022 Nithiya Streethran
