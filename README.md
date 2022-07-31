@@ -1,10 +1,11 @@
 # Offshore Wind Community Impacts
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6847982.svg)](https://doi.org/10.5281/zenodo.6847982)
+[![DOI](badges/ZENODO_poster.svg)](https://doi.org/10.5281/zenodo.6847982)
+[![Report (PDF)](badges/REPORT.svg)](docs/report.pdf)
 
 GIS project on mapping the impacts of a proposed offshore wind development plan on Isle of Lewis communities
 
-Originally completed as part of my dissertation at the University of Aberdeen
+Originally completed as part of my MSc dissertation at the University of Aberdeen
 
 ## Set-up
 
