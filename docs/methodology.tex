@@ -1,6 +1,6 @@
 \chapter{Methodology}
 
-This project has a predominantly quantitative computing and \gls{gis}-based methodology, which includes the use of \glspl{api} for automated data downloads, geostatistics and geovisualisation, exploratory data analysis, raster and vector data processing, viewshed analysis, and \gls{mca}. To supplement this data, qualitative inputs are obtained through a participatory \gls{gis} session with community land owners.
+This project has a predominantly quantitative computing and \gls{gis}-based methodology, which includes the use of \glspl{api} for automated data downloads, geostatistics and geovisualisation, exploratory data analysis, raster and vector data processing, viewshed analysis, and \gls{mca}. To supplement this data, qualitative inputs are obtained through a participatory \gls{gis} session with community landowners.
 
 The data used in this project are predominantly derived from a number of UK or Scottish public sector data sources, including Ordnance Survey, Scottish Government, Marine Scotland, NatureScot, Improvement Service, and Historic Environment Scotland \autocite{os-downloads,spatialdata}. Additionally, bathymetry data used is derived from the European Union's EMODnet Bathymetry portal \autocite{emodnet-bathymetry}. All downloaded data are in the EPSG:27700 (Ordnance Survey National Grid reference system); except for data downloaded from Marine Scotland and EMODnet, which are in EPSG:4326. The output data produced are in the EPSG:27700 \gls{crs} and two file formats: GeoPackage for vector data (points, lines, and polygons), and GeoTIFF for raster data.
 
@@ -26,7 +26,7 @@ The overall methodology used is summarised in the flowcharts in \autoref{fig:flo
 
 The \gls{smp} Plan Option polygons were downloaded from Marine Scotland. Using the GeoPandas Python library, the dataset was filtered to include only site N4, and then reprojected into EPSG:27700. The resulting polygon was opened using the QGIS user interface, with Ordnance Survey's 1:250 000 Scale Colour Raster for the Isle of Lewis area, comprising of the NA, NB, and NG British National Grid 100 km tiles added as a basemap for context.
 
-A study area around site N4 is determined to confine the analysis to a limited area, which enables the analysis to focus on the impacts on the communities closest to the shore, as well as improve the computational efficiency of the analysis by using a subset of all data available. An initial enquiry on the profiles of the land owners interested in taking part in this project was done to find their locations of interest. These locations were found on the basemap to be within a 15 km buffer from the edges of site N4; as a result, the area occupied by this buffer is selected as the final study area. The buffer was created and saved as a polygon using Python.
+A study area around site N4 is determined to confine the analysis to a limited area, which enables the analysis to focus on the impacts on the communities closest to the shore, as well as improve the computational efficiency of the analysis by using a subset of all data available. An initial enquiry on the profiles of the landowners interested in taking part in this project was done to find their locations of interest. These locations were found on the basemap to be within a 15 km buffer from the edges of site N4; as a result, the area occupied by this buffer is selected as the final study area. The buffer was created and saved as a polygon using Python.
 
 In order to provide additional context to the study area, boundaries representing community councils, which are statutory bodies independently run by volunteer residents representing communities \autocite{cnes-cc}, were used. These were downloaded, along with the Ordnance Survey Boundary-Line\texttrademark\ administrative boundary data, using a Python script, with the 15 km buffer serving as a mask to clip the data to the study area.
 
@@ -103,7 +103,7 @@ The specification and layout plans also detail the water depths below the lowest
 
 \begin{figure}
   \centering
-  \frame{\includegraphics[width=.9\textwidth]{../images/plots/histogram}}
+  \fbox{\includegraphics[width=.9\textwidth]{../images/plots/histogram}}
   \caption{A histogram showing the distribution of water depth within site N4. \label{fig:hist}}
 \end{figure}
 
@@ -187,11 +187,11 @@ The study area has a total of 41 scheduled monuments spread across the different
 
 \begin{figure}
   \centering
-  \frame{\includegraphics[width=.9\textwidth]{../images/plots/viewpoints_cc}}
+  \fbox{\includegraphics[width=.9\textwidth]{../images/plots/viewpoints_cc}}
   \caption{A chart summarising the number of scheduled monuments in each community council intersecting the study area. \label{fig:sm-cc}}
 \end{figure}
 
-The final viewpoints were selected based on the prevalence of photographic data available on Wikimedia Commons and Geograph \autocite{wikimedia,geograph-uk} (which indicates the popularity of certain sites), as well as some inputs from community land owners during the participatory \gls{gis} session. These viewpoints were filtered from the scheduled monuments data using Python. The distribution of the viewpoints is shown in \autoref{fig:vp-loc}, while photographs of viewpoints can be seen in \autoref{fig:viewpoints1} and \autoref{fig:viewpoints2}.
+The final viewpoints were selected based on the prevalence of photographic data available on Wikimedia Commons and Geograph \autocite{wikimedia,geograph-uk} (which indicates the popularity of certain sites), as well as some inputs from community landowners during the participatory \gls{gis} session. These viewpoints were filtered from the scheduled monuments data using Python. The distribution of the viewpoints is shown in \autoref{fig:vp-loc}, while photographs of viewpoints can be seen in \autoref{fig:viewpoints1} and \autoref{fig:viewpoints2}.
 
 \begin{figure}
   \centering
@@ -202,22 +202,22 @@ The final viewpoints were selected based on the prevalence of photographic data 
 \begin{figure}
   \centering
   \begin{subfigure}[t]{.48\textwidth}
-    \frame{\includegraphics[width=\textwidth]{../images/viewpoints/Calanais_Standing_Stones}}
+    \fbox{\includegraphics[width=\textwidth]{../images/viewpoints/Calanais_Standing_Stones}}
     \caption*{Callanish Standing Stones, Breascelte (121301, 932992), SM90054. Photo: CC-BY-SA-3.0 - \textcopyright~Otter - Wikimedia Commons. 10 June 2009. \url{https://commons.wikimedia.org/wiki/File:Calanais_Standing_Stones_20090610_01.jpg}.}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{.48\textwidth}
-    \frame{\includegraphics[width=\textwidth]{../images/viewpoints/Bernera_Bridge}}
+    \fbox{\includegraphics[width=\textwidth]{../images/viewpoints/Bernera_Bridge}}
     \caption*{Bernera Bridge stone setting, Bernera (116385, 934255), SM5548. Photo: CC-BY-SA-2.0 - \textcopyright~F. Leask - Geograph. 8 June 2007. \url{https://www.geograph.org.uk/photo/602195}.}
   \end{subfigure}
   \\[.5cm]
   \begin{subfigure}[t]{.48\textwidth}
-    \frame{\includegraphics[width=\textwidth]{../images/viewpoints/Arnol_Blackhouse}}
+    \fbox{\includegraphics[width=\textwidth]{../images/viewpoints/Arnol_Blackhouse}}
     \caption*{Arnol Blackhouse and associated croft houses, Shawbost (131057, 949253), SM90022. Photo: CC-BY-SA-2.0 - \textcopyright~M J Richardson - Geograph. 27 May 2016. \url{https://www.geograph.org.uk/photo/4988136}.}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{.48\textwidth}
-    \frame{\includegraphics[width=\textwidth]{../images/viewpoints/Loch_Barabhat}}
+    \fbox{\includegraphics[width=\textwidth]{../images/viewpoints/Loch_Barabhat}}
     \caption*{Loch Baravat dun, North Galson, Ness (146172, 959665), SM5454. Photo: CC-BY-SA-2.0 - \textcopyright~Dave Fergusson - Geograph. 29 September 2007. \url{https://www.geograph.org.uk/photo/573109}.}
   \end{subfigure}
   \caption{Photographs of viewpoints in Breascelte, Bernera, Shawbost, and Ness within the study area. All viewpoints are designated scheduled monuments. \label{fig:viewpoints1}}
@@ -226,17 +226,17 @@ The final viewpoints were selected based on the prevalence of photographic data 
 \begin{figure}
   \centering
   \begin{subfigure}[t]{.48\textwidth}
-    \frame{\includegraphics[width=\textwidth]{../images/viewpoints/Dun_Carloway}}
+    \fbox{\includegraphics[width=\textwidth]{../images/viewpoints/Dun_Carloway}}
     \caption*{Dun Carloway broch, Carloway (119002, 941231), SM90110. Photo: CC-BY-SA-2.0 - \textcopyright~Tom Parnell - Flickr/Wikimedia Commons. 25 February 2019. \url{https://commons.wikimedia.org/wiki/File:Dùn_Chàrlabhaigh_(40814409303).jpg}.}
   \end{subfigure}
   ~
   \begin{subfigure}[t]{.48\textwidth}
-    \frame{\includegraphics[width=\textwidth]{../images/viewpoints/Steinacleit}}
+    \fbox{\includegraphics[width=\textwidth]{../images/viewpoints/Steinacleit}}
     \caption*{Steinacleit homestead and field system, Airidhantuim (139652, 954086), SM90284. Photo: CC-BY-SA-4.0 - \textcopyright~Andrew Gray - Wikimedia Commons. 11 April 2018. \url{https://commons.wikimedia.org/wiki/File:Outer_Hebrides_-_Steinacleit_-_20180411114215.jpg}.}
   \end{subfigure}
   \\[.5cm]
   \begin{subfigure}[t]{.48\textwidth}
-    \frame{\includegraphics[width=\textwidth]{../images/viewpoints/Taigh_a_Bheannaich}}
+    \fbox{\includegraphics[width=\textwidth]{../images/viewpoints/Taigh_a_Bheannaich}}
     \caption*{Tigh a' Bheannaich chapel, Uig (103870, 937914), SM5390. Photo: CC-BY-SA-2.0 - \textcopyright~Marc Calhoun - Geograph. 31 May 2001. \url{https://www.geograph.org.uk/photo/683286}.}
   \end{subfigure}
   \caption{Photographs of viewpoints in Carloway, Airidhantuim, and Uig within the study area. All viewpoints are designated scheduled monuments. \label{fig:viewpoints2}}
@@ -265,9 +265,9 @@ The reclassified raster layers were then added to produce a cumulative raster th
 
 \section{Participatory GIS}
 
-A participatory \gls{gis} session was held to solicit local knowledge and opinions from a number of land owners within the study area who will be affected by offshore wind development at site N4. This was an online meeting for two hours done in a General Data Protection Regulation (GDPR) compliant manner using the University of Aberdeen-provided Microsoft Teams account. As a supplementary visual aid, a web map created using ArcGIS Online, containing layers of cultural, natural, and marine features in the study area, was presented to them. The local knowledge obtained through this session is used to complement and adjust inputs used for the visual impact assessment and \gls{mca}, such as viewpoint selection.
+A participatory \gls{gis} session was held to solicit local knowledge and opinions from a number of landowners within the study area who will be affected by offshore wind development at site N4. This was an online meeting for two hours done in a General Data Protection Regulation (GDPR) compliant manner using the University of Aberdeen-provided Microsoft Teams account. As a supplementary visual aid, a web map created using ArcGIS Online, containing layers of cultural, natural, and marine features in the study area, was presented to them. The local knowledge obtained through this session is used to complement and adjust inputs used for the visual impact assessment and \gls{mca}, such as viewpoint selection.
 
-An initial consultation took place with a representative of the land owners to survey the number of participants interested, as well as whether there are any special accessibility requirements for the session. This survey was used to develop a full ethical review, which was then submitted to the university for approval. The university data protection office was also contacted for advice. Once approval was granted, the land owners were contacted and the meeting was arranged.
+An initial consultation took place with a representative of the landowners to survey the number of participants interested, as well as whether there are any special accessibility requirements for the session. This survey was used to develop a full ethical review, which was then submitted to the university for approval. The university data protection office was also contacted for advice. Once approval was granted, the landowners were contacted and the meeting was arranged.
 
 In line with the university's recommendations, the session was planned to be recorded using Microsoft Teams, which was then transcribed into qualitative data. The participants were informed of this beforehand, as well as notified that their participation is voluntary and that they may withdraw at any point. Once the necessary data was transcribed, the recording was securely deleted to minimise risks and protect the privacy of the participants.
 
@@ -292,6 +292,6 @@ The questions listed below formed the basis of the discussion during the partici
   \item Do you have any feedback on how this session can be improved? Additionally, do you believe a participatory GIS framework can be used to improve public engagement in the future?
 \end{enumerate}
 
-The land owners were informed that they may provide rankings to indicate the relative importance of factors (e.g. in a scale of 1 to 10, where 1 is least important and 10 is most important). Additionally, they were able to use the web map, which supports anonymous public data collection, to directly indicate locations of interests and optionally add points, lines, and polygons of important locations.
+The landowners were informed that they may provide rankings to indicate the relative importance of factors (e.g. in a scale of 1 to 10, where 1 is least important and 10 is most important). Additionally, they were able to use the web map, which supports anonymous public data collection, to directly indicate locations of interests and optionally add points, lines, and polygons of important locations.
 
 A participant information sheet and consent form was developed and provided to the participants ahead of the meeting. The participant materials can be viewed in \autoref{app:pgis}.
