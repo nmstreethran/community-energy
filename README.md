@@ -1,7 +1,7 @@
 # Offshore Wind Community Impacts
 
 [![DOI](badges/ZENODO_poster.svg)](https://doi.org/10.5281/zenodo.6847982)
-[![Report (PDF)](badges/REPORT.svg)](docs/report.pdf)
+[![Report (PDF)](badges/REPORT.svg)](https://media.githubusercontent.com/media/nmstreethran/community-energy/main/docs/report.pdf)
 
 GIS project on mapping the impacts of a proposed offshore wind development plan on Isle of Lewis communities
 
