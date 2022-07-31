@@ -2,8 +2,6 @@
 .vscode/
 data/
 draft/
-images/
-maps/
 notebooks/
 *.acn
 *.acr
