@@ -11,23 +11,9 @@ To execute scripts in your own Python environment, install [Miniconda](https://d
 Create and activate a virtual environment with all required packages (including QGIS):
 
 ```sh
-conda create --name owci --channel conda-forge python=3.9 geopandas requests qgis
-conda activate owci
+conda env create
+conda activate community-energy
 ```
-
-Install these additional requirements:
-
-- if using Windows:
-
-  ```sh
-  conda install --channel conda-forge 7zip
-  ```
-
-- to run Jupyter Notebooks:
-
-  ```sh
-  conda install --channel conda-forge matplotlib rioxarray jupyterlab
-  ```
 
 To launch the QGIS GUI using this environment, run `qgis`. The scripts can then be copied and pasted into QGIS' Python console.
 
@@ -35,27 +21,42 @@ Note: Bathymetry data must be downloaded manually from the EMODnet Bathymetry po
 
 ## Data
 
-Name | Source | Format | Version | Coverage | CRS
------ | --- | -- | -- | --- | --
-Sectoral Marine Plan for Offshore Wind Energy Draft Plan Options | [Marine Scotland](https://marine.gov.scot/data/sectoral-marine-plan-offshore-wind-energy-draft-plan-options-gis-files) | Shapefile | 01/2020 | Scotland | EPSG:4326
-Scheduled Monuments | [Historic Environment Scotland](https://portal.historicenvironment.scot/downloads/scheduledmonuments) | Shapefile | 08/2020 | Scotland | EPSG:27700
-1:250 000 Scale Colour Raster™ | [Ordnance Survey](https://www.ordnancesurvey.co.uk/business-government/products/250k-raster) | TIFF-LZW | 06/2021 | Great Britain | EPSG:27700
-Boundary-Line™ | [Ordnance Survey](https://www.ordnancesurvey.co.uk/business-government/products/boundaryline) | GeoPackage | 05/2021 | Great Britain | EPSG:27700
-OS Terrain® 50 - 10 m contours | [Ordnance Survey](https://www.ordnancesurvey.co.uk/business-government/products/terrain-50) | GeoPackage | 07/2020 | Great Britain | EPSG:27700
-OS Open Names | [Ordnance Survey](https://www.ordnancesurvey.co.uk/business-government/products/open-map-names) | CSV | 04/2021 | Great Britain | EPSG:27700
-OS British National Grids | [Ordnance Survey](https://github.com/OrdnanceSurvey/OS-British-National-Grids) | GeoPackage | 01/2021 | Great Britain | EPSG:27700
-EMODnet Digital Bathymetry (DTM 2020) | [EMODnet](https://www.emodnet-bathymetry.eu/) | ASCII | 2020 | Area of Interest | EPSG:4326
-GeMS - Scottish Priority Marine Features (PMF) | [NatureScot](https://gateway.snh.gov.uk/natural-spaces/datasets/GEMS-PMF) | File Geodatabase | 2021-02 | Scotland | EPSG:4326
-Marine Consultation Areas | [NatureScot](https://gateway.snh.gov.uk/natural-spaces/datasets/MCA) | Shapefile | 2012-02 | Scotland | EPSG:27700
-National Scenic Areas | [Scottish Government](https://www.spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/13396739-7602-4428-85fd-95a5d7e208a1) | Shapefile | 1998 | Scotland | EPSG:27700
-2011 Output Area Boundaries - Extent of the Realm | [National Records of Scotland](https://www.nrscotland.gov.uk/statistics-and-data/geography/our-products/census-datasets/2011-census/2011-boundaries) | Shapefile | 2013-09 | Scotland | EPSG:27700
-2011 Output Area - Population Weighted Centroids | [National Records of Scotland](https://www.nrscotland.gov.uk/statistics-and-data/geography/our-products/census-datasets/2011-census/2011-boundaries) | Shapefile | 2013-09 | Scotland | EPSG:27700
-2011 census table data: Output Area 2011 | [National Records of Scotland](https://www.scotlandscensus.gov.uk/documents/2011-census-table-data-output-area-2011/) | CSV | 2021-04 | Scotland
-Community Council Boundaries | [Improvement Service](https://data.spatialhub.scot/dataset/community_council_boundaries-is) | Shapefile | 2021-07 | Scotland | EPSG:27700
+Name | Source | Format | Version | Coverage | CRS (EPSG) | Metadata
+----- | --- | -- | -- | --- | -- | --
+Sectoral Marine Plan for Offshore Wind Energy Draft Plan Options | [Marine Scotland] | Shapefile | 01/2020 | Scotland | 4326 | [[1]]
+Scheduled Monuments | [Historic Environment Scotland] | Shapefile | 08/2020 | Scotland | 27700 | [[2]]
+1:250 000 Scale Colour Raster™ | [Ordnance Survey][OS250k] | TIFF-LZW | 06/2021 | Great Britain | 27700
+Boundary-Line™ | [Ordnance Survey][OSBdL] | GeoPackage | 10/2021 | Great Britain | 27700
+OS Terrain® 50 - 10 m contours | [Ordnance Survey][OST50] | GeoPackage | 07/2021 | Great Britain | 27700
+OS Open Names | [Ordnance Survey][OSON] | CSV | 10/2021 | Great Britain | 27700
+OS British National Grids | [Ordnance Survey][OSBNG] | GeoPackage | 01/2021 | Great Britain | 27700
+EMODnet Digital Bathymetry (DTM 2020) | [EMODnet] | ASCII | 2020 | Area of Interest | 4326
+GeMS - Scottish Priority Marine Features (PMF) | [NatureScot][NSGeMS] | File Geodatabase | 02/2021 | Scotland | 4326 | [[3]]
+Marine Consultation Areas | [NatureScot][NSMCA] | Shapefile | 02/2012 | Scotland | 27700 | [[4]]
+National Scenic Areas | [Scottish Government][5] | Shapefile | 1998 | Scotland | 27700 | [[5]]
+2011 Output Area Boundaries - Extent of the Realm | [National Records of Scotland][NRSOAB] | GML | 09/2013 | Scotland | 27700 | [[6]]
+2011 Output Area - Population Weighted Centroids | [National Records of Scotland][NRSOAB] | GML | 09/2013 | Scotland | 27700 | [[7]]
+2011 census table data: Output Area 2011 | [National Records of Scotland][NRSCT] | CSV | 04/2021 | Scotland
+Community Council Boundaries | [Improvement Service] | Shapefile | 11/2021 | Scotland | 27700 | [[8]]
+
+### Clipped data
+
+- layers in `boundaries.gpkg`
+  - Sectoral Marine Plan options: `sectoral_marine_plan`
+  - Sectoral Marine Plan option N4: `sectoral_marine_plan_N4`
+  - 15 km study area buffer around N4: `study_area`
+  - OS Boundary-Line
+    - Scottish Constituencies: `os_bdline_scotland_const`
+    - Scotland: `os_bdline_scotland`
+    - Western Isles: `os_bdline_westernisles_const`
+  - Community council boundaries: `community_council`
+- layers in `context.gpkg`
+  - British National Grids (various resolutions, GB coverage): `100km_grid`, `50km_grid`, `20km_grid`, `10km_grid`, `5km_grid`, `1km_grid`
+  - OS Open Names, covering NA8 and NB: `os_opennames`
 
 ## Licence
 
-(C) 2021 Nithiya Streethran
+(C) 2021-2022 Nithiya Streethran
 
 This work is licenced under the [GNU General Public License v3.0 or later (GPL-3.0-or-later)](https://www.gnu.org/licenses/gpl-3.0.html).
 
@@ -69,3 +70,27 @@ This project uses public sector information licenced under the [Open Government 
 Bathymetry data used in this project was made available by the EMODnet Bathymetry project, funded by the European Commission Directorate General for Maritime Affairs and Fisheries. The data originators are the United Kingdom Hydrographic Office (UKHO), OceanWise Limited, and the General Bathymetric Chart of the Oceans (GEBCO).
 
 All data used in this project are not to be used for navigation or for any other purpose relating to safety at sea.
+
+Documentation is licenced under a [Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0) License](https://creativecommons.org/licenses/by-sa/4.0/).
+
+[Marine Scotland]: https://marine.gov.scot/data/sectoral-marine-plan-offshore-wind-energy-draft-plan-options-gis-files
+[Historic Environment Scotland]: https://portal.historicenvironment.scot/downloads/scheduledmonuments
+[OS250k]: https://www.ordnancesurvey.co.uk/business-government/products/250k-raster
+[OSBdL]: https://www.ordnancesurvey.co.uk/business-government/products/boundaryline
+[OST50]: https://www.ordnancesurvey.co.uk/business-government/products/terrain-50
+[OSON]: https://www.ordnancesurvey.co.uk/business-government/products/open-map-names
+[OSBNG]: https://github.com/OrdnanceSurvey/OS-British-National-Grids
+[EMODnet]: https://www.emodnet-bathymetry.eu/
+[NSGeMS]: https://gateway.snh.gov.uk/natural-spaces/datasets/GEMS-PMF
+[NSMCA]: https://gateway.snh.gov.uk/natural-spaces/datasets/MCA
+[NRSOAB]: https://www.nrscotland.gov.uk/statistics-and-data/geography/our-products/census-datasets/2011-census/2011-boundaries
+[NRSCT]: https://www.scotlandscensus.gov.uk/documents/2011-census-table-data-output-area-2011/
+[Improvement Service]: https://data.spatialhub.scot/dataset/community_council_boundaries-is
+[1]: https://spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/Marine_Scotland_FishDAC_12263
+[2]: https://spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/756ec396-b6f9-4efe-8309-2dad95ffef68
+[3]: https://spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/3bcb9784-6c3c-410a-9096-4d7777454ac5
+[4]: https://spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/7C6A9F67-7581-404B-AE59-8DE523291550
+[5]: https://spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/13396739-7602-4428-85fd-95a5d7e208a1
+[6]: https://spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/e8544752-8d8e-4be4-8fad-68e7e70a90b8
+[7]: https://spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/9d977a73-7884-4870-ae76-afccf8e6fae8
+[8]: https://spatialdata.gov.scot/geonetwork/srv/eng/catalog.search#/metadata/83b038d4-1d33-4acf-83ea-e5dcc510a034

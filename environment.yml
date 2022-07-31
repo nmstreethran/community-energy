@@ -1,0 +1,14 @@
+name: community-energy
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - geopandas
+  - requests
+  - qgis
+  - py7zr
+  - matplotlib
+  - rioxarray
+  - jupyterlab
+  - dask
