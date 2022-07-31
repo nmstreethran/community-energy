@@ -81,7 +81,7 @@ Bathymetry data used in this project was made available by the EMODnet Bathymetr
 
 All data used in this project are not to be used for navigation or for any other purpose relating to safety at sea.
 
-Documentation is licenced under a [Creative Commons Attribution-ShareAlike 4.0 International (CC-BY-SA-4.0) License](https://creativecommons.org/licenses/by-sa/4.0/).
+Documentation is licenced under a [Creative Commons Attribution 4.0 International (CC-BY-4.0) License](https://creativecommons.org/licenses/by/4.0/).
 
 [Marine Scotland]: https://marine.gov.scot/data/sectoral-marine-plan-offshore-wind-energy-draft-plan-options-gis-files
 [Historic Environment Scotland]: https://portal.historicenvironment.scot/downloads/scheduledmonuments
