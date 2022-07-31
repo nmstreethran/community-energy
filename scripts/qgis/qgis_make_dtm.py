@@ -33,13 +33,13 @@ import os
 import geopandas as gpd
 
 # path to GeoPackage with input layers and data folders
-gpkgPath = "data/input.gpkg"
-tempDir = "data/temp/dtm/"
-rasterDir = "data/rasters/"
+GPKG_PATH = "data/input.gpkg"
+TEMP_DIR = "data/temp/dtm/"
+RASTER_DIR = "data/rasters/"
 
 # create directory to store temporary files
-os.makedirs(tempDir, exist_ok=True)
-os.makedirs(rasterDir, exist_ok=True)
+os.makedirs(TEMP_DIR, exist_ok=True)
+os.makedirs(RASTER_DIR, exist_ok=True)
 
 feedback = QgsProcessingFeedback()
 
@@ -48,81 +48,81 @@ params = {
     "INPUT_RASTER": "data/raw/rasters/bathymetry.asc",
     "RASTER_BAND": 1,
     "FIELD_NAME": "VALUE",
-    "OUTPUT": tempDir + "bathymetry_pts_temp.shp"
+    "OUTPUT": TEMP_DIR + "bathymetry_pts_temp.shp"
 }
 processing.run("native:pixelstopoints", params, feedback=feedback)
 
 # assign projection
 params = {
-    "INPUT": tempDir + "bathymetry_pts_temp.shp",
+    "INPUT": TEMP_DIR + "bathymetry_pts_temp.shp",
     "CRS": QgsCoordinateReferenceSystem("EPSG:4326"),
-    "OUTPUT": tempDir + "bathymetry_pts_wgs84.shp"
+    "OUTPUT": TEMP_DIR + "bathymetry_pts_wgs84.shp"
 }
 processing.run("native:assignprojection", params, feedback=feedback)
 
 # reproject points from WGS84 to OSGB 1936
 params = {
-    "INPUT": tempDir + "bathymetry_pts_wgs84.shp",
+    "INPUT": TEMP_DIR + "bathymetry_pts_wgs84.shp",
     "TARGET_CRS": QgsCoordinateReferenceSystem("EPSG:27700"),
-    "OUTPUT": tempDir + "bathymetry_pts_osgb.shp"
+    "OUTPUT": TEMP_DIR + "bathymetry_pts_osgb.shp"
 }
 processing.run("native:reprojectlayer", params, feedback=feedback)
 
 # clip points to study area
 # outLayer = (
-#     "ogr:dbname=\'" + gpkgPath + "\' table=\"emodnet_bathymetry\" (geom)"
+#     "ogr:dbname=\'" + GPKG_PATH + "\' table=\"emodnet_bathymetry\" (geom)"
 # )
 # params = {
-#     "INPUT": tempDir + "bathymetry_pts_osgb.shp",
-#     "MASK": gpkgPath + "|layername=study_area_water",
+#     "INPUT": TEMP_DIR + "bathymetry_pts_osgb.shp",
+#     "MASK": GPKG_PATH + "|layername=study_area_water",
 #     "OUTPUT": outLayer
 # }
 # processing.run("gdal:clipvectorbypolygon", params, feedback=feedback)
 
 data = gpd.read_file(
-    tempDir + "bathymetry_pts_osgb.shp",
-    mask=gpd.read_file(gpkgPath, layer="study_area_water")
+    TEMP_DIR + "bathymetry_pts_osgb.shp",
+    mask=gpd.read_file(GPKG_PATH, layer="study_area_water")
 )
-data.to_file(gpkgPath, layer="emodnet_bathymetry", driver="GPKG")
+data.to_file(GPKG_PATH, layer="emodnet_bathymetry", driver="GPKG")
 
 # define data sources
-extentLayer = gpkgPath + "|layername=study_area"
-spotheightLayer = gpkgPath + "|layername=os_terrain50_spotheight"
-contourLayer = gpkgPath + "|layername=os_terrain50_contourline"
-boundaryLayer = gpkgPath + "|layername=os_terrain50_landwaterboundary"
-bathymetryLayer = gpkgPath + "|layername=emodnet_bathymetry"
+EXTENT_LAYER = GPKG_PATH + "|layername=study_area"
+SPOTHEIGHT_LAYER = GPKG_PATH + "|layername=os_terrain50_spotheight"
+CONTOUR_LAYER = GPKG_PATH + "|layername=os_terrain50_contourline"
+BOUNDARY_LAYER = GPKG_PATH + "|layername=os_terrain50_landwaterboundary"
+BATHYMETRY_LAYER = GPKG_PATH + "|layername=emodnet_bathymetry"
 
 # define TIN interpolation data
-interpolationData = (
-    bathymetryLayer + "::~::0::~::0::~::0::|::" +
-    spotheightLayer + "::~::0::~::2::~::0::|::" +
-    contourLayer + "::~::0::~::2::~::1::|::" +
-    boundaryLayer + "::~::0::~::2::~::2"
+INTERPOLATION_DATA = (
+    BATHYMETRY_LAYER + "::~::0::~::0::~::0::|::" +
+    SPOTHEIGHT_LAYER + "::~::0::~::2::~::0::|::" +
+    CONTOUR_LAYER + "::~::0::~::2::~::1::|::" +
+    BOUNDARY_LAYER + "::~::0::~::2::~::2"
 )
 
 # TIN interpolation
 params = {
-    "INTERPOLATION_DATA": interpolationData,
-    "EXTENT": extentLayer,
+    "INTERPOLATION_DATA": INTERPOLATION_DATA,
+    "EXTENT": EXTENT_LAYER,
     "PIXEL_SIZE": 10,
-    "OUTPUT": tempDir + "terrain_temp.tif",
-    "TRIANGULATION": tempDir + "terrain_tin.shp"
+    "OUTPUT": TEMP_DIR + "terrain_temp.tif",
+    "TRIANGULATION": TEMP_DIR + "terrain_tin.shp"
 }
 processing.run("qgis:tininterpolation", params, feedback=feedback)
 
 # clip to study area
 params = {
-    "INPUT": tempDir + "terrain_temp.tif",
-    "MASK": extentLayer,
-    "OUTPUT": rasterDir + "terrain.tif"
+    "INPUT": TEMP_DIR + "terrain_temp.tif",
+    "MASK": EXTENT_LAYER,
+    "OUTPUT": RASTER_DIR + "terrain.tif"
 }
 processing.run("gdal:cliprasterbymasklayer", params, feedback=feedback)
 
 # clip DTM to N4
 params = {
-    "INPUT": rasterDir + "terrain.tif",
-    "MASK": gpkgPath + "|layername=sectoral_marine_plan_N4",
-    "OUTPUT": rasterDir + "terrain_N4.tif"
+    "INPUT": RASTER_DIR + "terrain.tif",
+    "MASK": GPKG_PATH + "|layername=sectoral_marine_plan_N4",
+    "OUTPUT": RASTER_DIR + "terrain_N4.tif"
 }
 processing.run("gdal:cliprasterbymasklayer", params, feedback=feedback)
 

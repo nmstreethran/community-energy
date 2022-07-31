@@ -77,36 +77,36 @@ feedback = QgsProcessingFeedback()
 os.makedirs("data/temp/viewshed", exist_ok=True)
 
 # generate turbine distribution in N4
-n4 = "data/input.gpkg|layername=sectoral_marine_plan_N4"
+N4 = "data/input.gpkg|layername=sectoral_marine_plan_N4"
 turbDist = [(25, 2880), (50, 2000), (75, 1625), (100, 1400)]
 
 for n, d in turbDist:
-    distLayer = (
+    DIST_LAYER = (
         "ogr:dbname=\'data/temp/viewshed/turbine_dist_temp.gpkg\' table=\"" +
         str(n) + "_turbines\" (geom)"
     )
     params = {
-        "EXTENT": n4,
+        "EXTENT": N4,
         "SPACING": d,
         "INSET": 0,
         "RANDOMIZE": False,
         "IS_SPACING": True,
         "CRS": QgsCoordinateReferenceSystem("EPSG:27700"),
-        "OUTPUT": distLayer
+        "OUTPUT": DIST_LAYER
     }
     processing.run("qgis:regularpoints", params, feedback=feedback)
-    outLayer = (
+    OUT_LAYER = (
         "data/temp/viewshed/turbine_dist_temp.gpkg|layername=" + str(n) +
         "_turbines"
     )
-    distLayer = (
+    DIST_LAYER = (
         "ogr:dbname=\'data/output.gpkg\' table=\"scenario_" +
         str(n) + "_turbines\" (geom)"
     )
     params = {
-        "INPUT": outLayer,
-        "OVERLAY": n4,
-        "OUTPUT": distLayer
+        "INPUT": OUT_LAYER,
+        "OVERLAY": N4,
+        "OUTPUT": DIST_LAYER
     }
     processing.run("native:intersection", params, feedback=feedback)
 
@@ -124,22 +124,22 @@ for n, h in scenarios:
         "data/output.gpkg", layer="scenario_"+str(n)+"_turbines"
     )
     for i in range(len(nLayer)):
-        obs = (
+        OBSERVER = (
             str(nLayer["geometry"][i][0].x) + "," +
             str(nLayer["geometry"][i][0].y) + " [EPSG:27700]"
         )
-        outFile = (
+        OUTPUT_FILE = (
             "data/temp/viewshed" + str(n) + "t_" + str(h) + "m/" + str(i) +
             ".tif"
         )
         params = {
             "INPUT": "data/rasters/terrain.tif",
             "BAND": 1,
-            "OBSERVER": obs,
+            "OBSERVER": OBSERVER,
             "OBSERVER_HEIGHT": h + 50,
             "TARGET_HEIGHT": 1.65,
             "MAX_DISTANCE": 45000,
-            "OUTPUT": outFile
+            "OUTPUT": OUTPUT_FILE
         }
         processing.run("gdal:viewshed", params, feedback=feedback)
 
@@ -147,11 +147,11 @@ for n, h in scenarios:
 # this was done using the QGIS interface
 # code still being worked on
 rList = list(range(1, 100))
-expr = "\"0@1\""
+EXPRESSION = "\"0@1\""
 for r in rList:
-    expr = expr + " + \"" + str(r) + "@1\""
+    EXPRESSION = EXPRESSION + " + \"" + str(r) + "@1\""
 params = {
-    "EXPRESSION": expr,
+    "EXPRESSION": EXPRESSION,
     "LAYERS": ["100t_180m/0.tif"],
     "OUTPUT": "100t_180m_temp.tif"
 }
@@ -206,18 +206,18 @@ tbl = [
     4250, 5312.5, 0.8,
     5312.5, 6375, 1
 ]
-inRaster = "data/temp/viewshed/25t_180m_clip.tif"
-outRaster = "data/rasters/viewshed_25t_180m.tif"
+INPUT_RASTER = "data/temp/viewshed/25t_180m_clip.tif"
+OUTPUT_RASTER = "data/rasters/viewshed_25t_180m.tif"
 
 params = {
-    "INPUT_RASTER": inRaster,
+    "INPUT_RASTER": INPUT_RASTER,
     "RASTER_BAND": 1,
     "TABLE": tbl,
     "NO_DATA": -9999,
     "RANGE_BOUNDARIES": 0,
     "NODATA_FOR_MISSING": False,
     "DATA_TYPE": 5,
-    "OUTPUT": outRaster
+    "OUTPUT": OUTPUT_RASTER
 }
 processing.run("native:reclassifybytable", params, feedback=feedback)
 
@@ -252,7 +252,7 @@ params = {
 processing.run("native:multiringconstantbuffer", params, feedback=feedback)
 
 # generate zonal statistics for each viewshed raster
-outLayer = (
+OUT_LAYER = (
     "ogr:dbname=\'data/output.gpkg\' table=\"" +
     "zonalstats_25t_180m\" (geom)"
 )
@@ -262,7 +262,7 @@ params = {
     "RASTER_BAND": 1,
     "COLUMN_PREFIX": "zs_",
     "STATISTICS": [0, 1, 2, 4, 5, 6],
-    "OUTPUT": outLayer
+    "OUTPUT": OUT_LAYER
 }
 processing.run("native:zonalstatisticsfb", params, feedback=feedback)
 
