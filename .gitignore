@@ -20,6 +20,5 @@ notebooks/
 *.log
 *.lot
 *.out
-*.pdf
 *.run.xml
 *.toc
