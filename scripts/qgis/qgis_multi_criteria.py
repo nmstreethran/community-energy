@@ -140,7 +140,7 @@ params = {
 processing.run("native:orderbyexpression", params, feedback=feedback)
 
 # rasterise
-ext = (
+EXTENT = (
     "93951.519500000,147902.827900000,931331.420600000,980507.702700000" +
     " [EPSG:27700]"
 )
@@ -152,7 +152,7 @@ params = {
     "UNITS": 1,
     "WIDTH": 10,
     "HEIGHT": 10,
-    "EXTENT": ext,
+    "EXTENT": EXTENT,
     "NODATA": None,
     "DATA_TYPE": 5,
     "INIT": None,
@@ -212,7 +212,7 @@ params = {
 processing.run("native:multiringconstantbuffer", params, feedback=feedback)
 
 # rasterise
-ext = (
+EXTENT = (
     "93951.519500000,147902.827900000,931331.420600000,980507.702700000" +
     " [EPSG:27700]"
 )
@@ -224,7 +224,7 @@ params = {
     "UNITS": 1,
     "WIDTH": 10,
     "HEIGHT": 10,
-    "EXTENT": ext,
+    "EXTENT": EXTENT,
     "NODATA": None,
     "DATA_TYPE": 5,
     "INIT": None,
@@ -313,12 +313,12 @@ processing.run("native:buffer", params, feedback=feedback)
 
 # ######################################################################
 # cumulative raster
-exp = (
+EXPRESSION = (
     "( \"distance_to_shore@1\" + \"distance_from_nsa@1\" + " +
     "\"population_heatmap@1\" )  / 3"
 )
 params = {
-    "EXPRESSION": exp,
+    "EXPRESSION": EXPRESSION,
     "LAYERS": ["data/rasters/population_heatmap.tif"],
     "CELLSIZE": None,
     "EXTENT": None,

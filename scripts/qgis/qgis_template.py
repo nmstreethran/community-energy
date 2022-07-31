@@ -7,10 +7,10 @@
 # exec(open("scripts/set_sys_paths.py").read())
 
 # import libraries
+import os
 from qgis.core import (
     QgsApplication, QgsProject, QgsVectorLayer, QgsProcessingFeedback
 )
-import os
 
 # create a reference to the QgsApplication
 # setting the second argument to False disables the GUI
@@ -59,17 +59,23 @@ processing.algorithmHelp("qgis:tininterpolation")
 # specify the input data
 
 
-def addVectorLayer(layerPath, layerTitle):
-    layer = layerPath
-    layer = QgsVectorLayer(layer, layerTitle, "ogr")
+def add_vector_layer(layer_path, layer_title=None):
+    """Add a vector data layer to the map
+    Parameters:
+    -----------
+    `layer_path`: layer's file path \
+    `layer_title`: optional layer title
+    """
+    layer = layer_path
+    layer = QgsVectorLayer(layer, layer_title, "ogr")
     if not layer.isValid():
         print("Layer invalid! " + str(layer))
     else:
         QgsProject.instance().addMapLayer(layer)
 
 
-addVectorLayer("layer.shp")
-addVectorLayer("data.gpkg|layername=layer")
+add_vector_layer("layer.shp")
+add_vector_layer("data.gpkg|layername=layer")
 
 # END ANALYSIS
 # ###################################################################
