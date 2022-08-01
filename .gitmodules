@@ -1,0 +1,3 @@
+[submodule "jupyter-notebooks"]
+	path = jupyter-notebooks
+	url = git@gist.github.com:c4379db1063b0895606f361a8abbf839.git
