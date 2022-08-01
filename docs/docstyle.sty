@@ -100,25 +100,32 @@
 
 % bibliography
 \usepackage[%
-  style=ext-authoryear,language=british,giveninits=true,
-  uniquename=allinit,urldate=comp,date=year,dateabbrev=false,
-  maxbibnames=9,maxcitenames=2]{biblatex}
+  style=authoryear-icomp,language=british,maxbibnames=7,maxcitenames=2,%
+  urldate=comp,date=year,giveninits=true,uniquelist=false%
+]{biblatex}
+% uniquename=allinit,dateabbrev=false
 
-% remove parentheses from year
-% https://tex.stackexchange.com/a/428209
-\DeclareFieldFormat{biblabeldate}{#1}
-\DeclareDelimFormat[bib]{nameyeardelim}{\adddot\space}
+% % remove parentheses from year
+% % https://tex.stackexchange.com/a/428209
+% \DeclareFieldFormat{biblabeldate}{#1}
+% \DeclareDelimFormat[bib]{nameyeardelim}{\adddot\space}
+
 % remove 'In:' before journal title
 % https://tex.stackexchange.com/a/10686
 \renewbibmacro{in:}{%
-  \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}
+  \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}%
 }
+
 % modify volume/issue/page number format
-% https://tex.stackexchange.com/a/541072
-\renewcommand*{\volnumdelim}{\addnbspace}
-\DeclareFieldFormat[article,periodical]{number}{\mkbibparens{#1}}
-\renewcommand*{\bibpagespunct}{\addcolon\space}
-\DeclareFieldFormat{pages}{#1}
+\newbibmacro*{volume+number+eid}{%
+  \printfield{volume}%
+  \iffieldundef{number}%
+  {\setunit*{\adddot}}%
+  {\setunit*{\addnbspace}\printtext[parens]{\printfield{number}}}%
+  \setunit{\bibeidpunct}%
+  \printfield{eid}%
+}
+
 % add hyperlinks to \citeyear command
 \DeclareCiteCommand{\citeyear}{%
   \usebibmacro{prenote}}
@@ -135,6 +142,32 @@
 
 % add Oxford comma in the authors list in the bibliography
 \DefineBibliographyExtras{british}{\def\finalandcomma{\addcomma}}
+
+% suppress URL, ISSN if DOI is present
+\DeclareSourcemap{%
+\maps[datatype=bibtex]{\map[overwrite]{%
+  \step[fieldsource=doi,final]
+  \step[fieldset=url,null]
+  \step[fieldset=issn,null]
+}}}
+
+% suppress URL if eprint is present
+\DeclareSourcemap{%
+\maps[datatype=bibtex]{\map[overwrite]{%
+  \step[fieldsource=eprint,final]
+  \step[fieldset=url,null]
+}}}
+
+% don't use urldate if date is undefined
+% https://tex.stackexchange.com/a/102426
+\DeclareLabeldate{%
+  \field{date}
+  \field{event}
+  \field{orig}
+  % \field{url}
+  \literal{nodate}
+}
+
 % categorise all cited entries
 \DeclareBibliographyCategory{cited}
 \AtEveryCitekey{\addtocategory{cited}{\thefield{entrykey}}}
