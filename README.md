@@ -1,16 +1,13 @@
-# Offshore Wind Community Impacts
+# Mapping the impacts of a proposed offshore wind development plan on Isle of Lewis communities
 
 [![DOI](badges/ZENODO_poster.svg)](https://doi.org/10.5281/zenodo.6847982)
 [![Report (PDF)](badges/REPORT.svg)](https://media.githubusercontent.com/media/nmstreethran/community-energy/main/docs/report.pdf)
-
-[![2D Web Map on ArcGIS Online](badges/2D_WEB_MAP.svg)](https://www.arcgis.com/apps/webappviewer/index.html?id=5da0279a967843b2836c22119e3ea572)
-[![3D Web Scene on ArcGIS Online](badges/3D_WEB_SCENE.svg)](https://www.arcgis.com/apps/webappviewer3d/index.html?id=6199462acc17455c888b7940508d272a)
 
 GIS project on mapping the impacts of a proposed offshore wind development plan on Isle of Lewis communities
 
 by Nithiya Streethran (nmstreethran@gmail.com)
 
-Originally completed as part of my MSc dissertation at the University of Aberdeen
+Originally completed as part of my MSc dissertation at the University of Aberdeen between May and August 2021
 
 ## Set-up
 
@@ -64,11 +61,20 @@ Community Council Boundaries | [Improvement Service] | Shapefile | 11/2021 | Sco
 
 ## Jupyter notebooks
 
+WIP
+
 &nbsp; | Output
 -- | --
-OS Downloads API | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/urls/gitlab.com/community-energy/community-energy-notebooks/-/raw/main/notebooks/os_downloads_api.ipynb)
-Study area definition | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/urls/gitlab.com/community-energy/community-energy-notebooks/-/raw/main/notebooks/study_area_def.ipynb)
-Context | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/urls/gitlab.com/community-energy/community-energy-notebooks/-/raw/main/notebooks/context.ipynb)
+OS Downloads API | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/gist/nmstreethran/c4379db1063b0895606f361a8abbf839/os_downloads_api.ipynb)
+Study area definition | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/gist/nmstreethran/c4379db1063b0895606f361a8abbf839/study_area_def.ipynb)
+Context | [![View Jupyter Notebook](badges/NOTEBOOK.svg)](https://nbviewer.org/gist/nmstreethran/c4379db1063b0895606f361a8abbf839/context.ipynb)
+
+## Maps
+
+WIP
+
+[![2D Web Map on ArcGIS Online](badges/2D_WEB_MAP.svg)](https://www.arcgis.com/apps/webappviewer/index.html?id=5da0279a967843b2836c22119e3ea572)
+[![3D Web Scene on ArcGIS Online](badges/3D_WEB_SCENE.svg)](https://www.arcgis.com/apps/webappviewer3d/index.html?id=6199462acc17455c888b7940508d272a)
 
 ## Licence
 
